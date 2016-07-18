@@ -1,0 +1,6 @@
+1/ Like NAMAS - they use an Attention model in the encoder-decoder
+2/ They use the Large vocabulary trick (LVT) of Jean et al 2014 http://arxiv.org/abs/1412.2007 - which means when you decode, use only the words that appear in the source - this reduces perplexity
+3/ But then you lose the capability to do "abstractive" summary - which means introducing words which were not in the source - so they do "vocabulary expansion" - by adding a layer of "word2vec nearest neighbors" to the words in the input
+4/ Feature rich encoding - they add TF*IDF and Named Entity types to the word embeddings (concatenated) to the encodings of the words - this adds to the encoding dimensions that reflect "importance" of the words
+5/ The most interesting of all is what they call the "Switching Generator/Pointer" layer (section 3.5).  In the decoder - they add a layer that decides to either generate a new word based on the context / previously generated word (usual decoder) OR copy a word from the input (that is - add a pointer to the input).  They learn when to do Generate vs. Pointer - and when it is a Pointer - to which word of the input to Point to.  This idea is from 
+Thang Luong, Ilya Sutskever, Quoc V. Le, Oriol Vinyals, and Wojciech Zaremba.
